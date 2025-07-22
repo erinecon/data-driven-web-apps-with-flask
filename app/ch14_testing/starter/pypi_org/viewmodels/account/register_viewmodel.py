@@ -14,7 +14,7 @@ class RegisterViewModel(ViewModelBase):
         if not self.name or not self.name.strip():
             self.error = 'You must specify a name.'
         elif not self.email or not self.email.strip():
-            self.error = 'You must specify a email.'
+            self.error = 'You must specify an email.'
         elif not self.password:
             self.error = 'You must specify a password.'
         elif len(self.password.strip()) < 5:

@@ -24,5 +24,6 @@ def client():
         pass
 
     pypi_org.app.setup_db()
+    client.post()
 
     yield client
