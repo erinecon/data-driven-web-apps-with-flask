@@ -1,6 +1,7 @@
 import hashlib
 from typing import Optional
 
+import bson
 from flask import Request
 from flask import Response
 
@@ -20,7 +21,7 @@ def __hash_text(text: str) -> str:
     return hashlib.sha512(text.encode('utf-8')).hexdigest()
 
 
-def get_user_id_via_auth_cookie(request: Request) -> Optional[int]:
+def get_user_id_via_auth_cookie(request: Request) -> Optional[bson.ObjectId]:
     if auth_cookie_name not in request.cookies:
         return None
 
@@ -36,7 +37,10 @@ def get_user_id_via_auth_cookie(request: Request) -> Optional[int]:
         print('Warning: Hash mismatch, invalid cookie value')
         return None
 
-    return try_int(user_id)
+    try:
+        return bson.ObjectId(user_id)
+    except:
+        return None
 
 
 def logout(response: Response):
